@@ -14,6 +14,5 @@ class ViewModel: ObservableObject {
         guard task.count > 0 else {return}
         
         todoList.insert(task, at: 0)
-        //TODO: clean up textfield after
     }
 }

@@ -1,18 +1,12 @@
-//
-//  ContentView.swift
-//  TaskManager
-//
-//  Created by Людмила Парфенова on 21/06/2023.
-//
 
 //TODO: use new swiftUI stuff
+//TODO: Add storage for tasks
 import SwiftUI
 
 struct ContentView: View {
     @State var task: String = ""
     @ObservedObject var viewModel = ViewModel()
     
-    //TODO: add tasks to the array
     var body: some View {
         NavigationView {
             List {
