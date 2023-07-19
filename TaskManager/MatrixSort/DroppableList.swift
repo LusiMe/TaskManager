@@ -28,32 +28,34 @@ struct DroppableList: View {
             }
         }
     }
-        
-    private func dragTask(for tasks: [String], task: String) {
-            //think what and where works
-        }
     
-        private func moveUser(from source: IndexSet, to destination: Int) {
-            tasks.move(fromOffsets: source, toOffset: destination)
-        }
-        
-        private func dropUser(at index: Int, _ items: [NSItemProvider]) {
-            for item in items {
-                _ = item.loadObject(ofClass: String.self) { droppedString, _ in
-                    if let ss = droppedString, let dropAction = action {
-                        DispatchQueue.main.async {
-                            dropAction(ss, index)
-                        }
+//    private func removeTask(task: String, from list: inout [String]) {
+//        if let index = list.firstIndex(where: {$0 == task}) {
+//            list.remove(at: index)
+//        }
+//    }
+    
+    private func moveUser(from source: IndexSet, to destination: Int) {
+        tasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    private func dropUser(at index: Int, _ items: [NSItemProvider]) {
+        for item in items {
+            _ = item.loadObject(ofClass: String.self) { droppedString, _ in
+                if let ss = droppedString, let dropAction = action {
+                    DispatchQueue.main.async {
+                        dropAction(ss, index)
                     }
                 }
             }
         }
+    }
     
     private func dropOnEmptyList(items: [NSItemProvider]) -> Bool {
-        dropUser(at: tasks.endIndex, items)
+        dropUser(at: tasks.startIndex, items)
         return true
     }
-    }
+}
 
 struct TwoListsView: View {
     @State var tasks1 = ["Wash the dishes", "Pay Gay's insurence", "Go to the gym"]
@@ -63,10 +65,6 @@ struct TwoListsView: View {
     
     //keep where it's coming from?
     //pass unique list id?
-    
-    private func removeMovedTask(droppedAt: [String], dropped: String) {
-        tasks1.removeAll {$0 == dropped}
-    }
     
     var body: some View {
         VStack {
@@ -81,7 +79,7 @@ struct TwoListsView: View {
             }
             
             HStack(spacing: 0) {
-                DroppableList("Urgent", tasks: $tasks1) { dropped, index in
+                DroppableList("Urgent", tasks: $tasks1) { dropped, index in //write the func to handle it all instead. where it's from and where to delete it from
                     tasks1.insert(dropped, at: index)
                     tasks2.removeAll {$0 == dropped}
                 }
