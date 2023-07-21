@@ -13,6 +13,7 @@
 		D06F075A2A4357D400B9D8BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06F07592A4357D400B9D8BE /* Preview Assets.xcassets */; };
 		D07E1BD32A580A2300A8C30F /* DroppableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07E1BD22A580A2300A8C30F /* DroppableList.swift */; };
 		D0DE5D512A51E52200050ADB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE5D502A51E52200050ADB /* ViewModel.swift */; };
+		D0E3FDCE2A68087B001393DE /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3FDCD2A68087B001393DE /* TaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,8 @@
 		D06F07592A4357D400B9D8BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D07E1BD22A580A2300A8C30F /* DroppableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppableList.swift; sourceTree = "<group>"; };
 		D0DE5D502A51E52200050ADB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		D0E3FDCD2A68087B001393DE /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		D0E3FDCF2A6AC706001393DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 		D06F07512A4357D300B9D8BE /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				D0E3FDCF2A6AC706001393DE /* Info.plist */,
 				D07E1BD12A5809F900A8C30F /* ToDoList */,
 				D07E1BD02A5809DA00A8C30F /* MatrixSort */,
 				D06F07522A4357D300B9D8BE /* TaskManagerApp.swift */,
@@ -76,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				D07E1BD22A580A2300A8C30F /* DroppableList.swift */,
+				D0E3FDCD2A68087B001393DE /* TaskModel.swift */,
 			);
 			path = MatrixSort;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 			files = (
 				D06F07552A4357D300B9D8BE /* ContentView.swift in Sources */,
 				D0DE5D512A51E52200050ADB /* ViewModel.swift in Sources */,
+				D0E3FDCE2A68087B001393DE /* TaskModel.swift in Sources */,
 				D06F07532A4357D300B9D8BE /* TaskManagerApp.swift in Sources */,
 				D07E1BD32A580A2300A8C30F /* DroppableList.swift in Sources */,
 			);
@@ -296,6 +302,7 @@
 				DEVELOPMENT_TEAM = M6U6J2JTK8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskManager/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -326,6 +333,7 @@
 				DEVELOPMENT_TEAM = M6U6J2JTK8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskManager/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
