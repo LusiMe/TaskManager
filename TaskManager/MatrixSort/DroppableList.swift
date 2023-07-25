@@ -28,7 +28,7 @@ struct DroppableList: View {
                 ForEach(tasks, id:\.self) { task in
                     Text(task)
                         .onDrag {
-                            listId = self.title
+                            listId = self.title.camelized
                             print(listId)
                             return NSItemProvider(object: task as NSString)
                         }
@@ -41,20 +41,15 @@ struct DroppableList: View {
     private func moveUser(from source: IndexSet, to destination: Int) {
         tasks.move(fromOffsets: source, toOffset: destination)
     }
-
+    
     private func dropTask(at index: Int, tasks: [ToDoTask]) {
         
-//            tasks[TaskPriority.notUrgent, default: []].append(contentsOf: droppedTask)
-//        guard let origin = TaskPriority(rawValue: fromList) else {
-//            print("task priority", TaskPriority(rawValue: fromList))
-//            return false}
-//        tasks[TaskPriority(rawValue: fromList)!]?.removeAll {$0.id == droppedTask[0].id}
     }
 }
 
 struct TwoListsView: View {
     
-   @State var tasks: [TaskPriority: [ToDoTask]] = [:]
+    @State var tasks: [TaskPriority: [ToDoTask]] = [:]
     
     @State var urgent = ["Wash the dishes", "Pay Gay's insurence", "Go to the gym"]
     @State var notUrgent = ["Meet with friends", "Cook the dinner", "Plan vacation"]
@@ -86,37 +81,36 @@ struct TwoListsView: View {
             HStack(spacing: 0) {
                 DroppableList(TaskPriority.urgent.rawValue, tasks: $urgent, listId: $fromList)
                     .dropDestination(for: ToDoTask.self) { droppedTask, index in
-//                    urgent.insert(dropped, at: index)
                         tasks[TaskPriority.urgent, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
+                        guard let origin = TaskPriority(rawValue: fromList) else {return false}
                         tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
                         return true
-                }
+                    }
                 
                 DroppableList("Not urgent", tasks: $notUrgent, listId: $fromList)
                     .dropDestination(for: ToDoTask.self) { droppedTask, index in
                         tasks[TaskPriority.notUrgent, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
+                        guard let origin = TaskPriority(rawValue: fromList) else {return false}
+                        tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
                         return true
-                }
+                    }
             }
             HStack(spacing: 0) {
                 DroppableList("Important", tasks: $important, listId: $fromList)
                     .dropDestination(for: ToDoTask.self) { droppedTask, index in
                         tasks[TaskPriority.important, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
+                        guard let origin = TaskPriority(rawValue: fromList) else {return false}
+                        tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
                         return true
-                }
+                    }
                 DroppableList("Not important", tasks: $notImportant, listId: $fromList)
                     .dropDestination(for: ToDoTask.self) { droppedTask, index in
                         print("task priority", TaskPriority(rawValue: fromList))
                         tasks[TaskPriority.notImportant, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
+                        guard let origin = TaskPriority(rawValue: fromList) else {return false}
+                        tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
                         return true
-                }
+                    }
             }
         }
     }

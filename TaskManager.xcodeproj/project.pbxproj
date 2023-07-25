@@ -12,6 +12,7 @@
 		D06F07572A4357D400B9D8BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06F07562A4357D400B9D8BE /* Assets.xcassets */; };
 		D06F075A2A4357D400B9D8BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06F07592A4357D400B9D8BE /* Preview Assets.xcassets */; };
 		D07E1BD32A580A2300A8C30F /* DroppableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07E1BD22A580A2300A8C30F /* DroppableList.swift */; };
+		D098D2F32A6FD88D0092FF39 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098D2F22A6FD88D0092FF39 /* Extensions.swift */; };
 		D0DE5D512A51E52200050ADB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE5D502A51E52200050ADB /* ViewModel.swift */; };
 		D0E3FDCE2A68087B001393DE /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3FDCD2A68087B001393DE /* TaskModel.swift */; };
 /* End PBXBuildFile section */
@@ -23,6 +24,7 @@
 		D06F07562A4357D400B9D8BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D06F07592A4357D400B9D8BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D07E1BD22A580A2300A8C30F /* DroppableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppableList.swift; sourceTree = "<group>"; };
+		D098D2F22A6FD88D0092FF39 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D0DE5D502A51E52200050ADB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D0E3FDCD2A68087B001393DE /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		D0E3FDCF2A6AC706001393DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				D06F07522A4357D300B9D8BE /* TaskManagerApp.swift */,
 				D06F07562A4357D400B9D8BE /* Assets.xcassets */,
 				D06F07582A4357D400B9D8BE /* Preview Content */,
+				D098D2F22A6FD88D0092FF39 /* Extensions.swift */,
 			);
 			path = TaskManager;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D06F07552A4357D300B9D8BE /* ContentView.swift in Sources */,
+				D098D2F32A6FD88D0092FF39 /* Extensions.swift in Sources */,
 				D0DE5D512A51E52200050ADB /* ViewModel.swift in Sources */,
 				D0E3FDCE2A68087B001393DE /* TaskModel.swift in Sources */,
 				D06F07532A4357D300B9D8BE /* TaskManagerApp.swift in Sources */,
