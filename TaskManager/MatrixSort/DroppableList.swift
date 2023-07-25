@@ -28,13 +28,21 @@ struct DroppableList: View {
             List {
                 Text(title)
                     .font(.subheadline)
-                    .onDrop(of: [.plainText], isTargeted: nil, perform: dropOnEmptyList)
-                ForEach(tasks, id:\.self) { task in
-                    Text(task.title)
-                        .onDrag {NSItemProvider(object: task as ToDoTask)}
+                    //.onDrop(of: [.plainText], isTargeted: nil, perform: dropOnEmptyList)
+                    .onDrop(of: [ToDoTaskUTI], isTargeted: nil) { providers in
+                        dropOnEmptyList(items: providers)
+                    }
+                ForEach(tasks.indices, id:\.self) { index in
+                    Text(tasks[index].name)
+                        .onDrag {NSItemProvider(object: tasks[index])}
+                        .onDrop(of: [ToDoTaskUTI], isTargeted: nil) { providers in
+                            dropTask(at: index, providers)
+                            return true
+                        }
                 }
                 .onMove(perform: moveUser)
-                .onInsert(of: [ToDoTaskUTI], perform: dropTask)
+                //.onInsert(of: [ToDoTaskUTI], perform: dropTask)
+
             }
         }
     }
@@ -45,12 +53,21 @@ struct DroppableList: View {
     
     private func dropTask(at index: Int, _ items: [NSItemProvider]) {
         for item in items {
-            _ = item.loadObject(ofClass: ToDoTask.self) { droppedTask, _ in
-                if let ss = droppedTask, let dropAction = action {
-                    DispatchQueue.main.async {
-                        dropAction(ss, index)
+//            _ = item.loadObject(ofClass: ToDoTask.self) { droppedTask, _ in
+//                if let ss = droppedTask, let dropAction = action {
+//                    DispatchQueue.main.async {
+//                        dropAction(ss, index)
+//                    }
+//                }
+//            }
+            if item.canLoadObject(ofClass: ToDoTask.self) {
+                _ = item.loadObject(ofClass: ToDoTask.self, completionHandler: { droppedTask, error in
+                    if let task = droppedTask as? ToDoTask, let action = action {
+                        DispatchQueue.main.async {
+                            action(task, index)
+                        }
                     }
-                }
+                })
             }
         }
     }
@@ -65,7 +82,8 @@ struct DroppableList: View {
 struct TwoListsView: View {
     
     @State var tasks: [TaskPriority: [ToDoTask]] = [:]
-    
+
+    // These Tasks has not been added to the task list
     @State var urgent = [ToDoTask(id: "123", name: "Wash the dishes", priority: .urgent),
                          ToDoTask(id: "321", name: "Pay Gay's insurence", priority: .urgent)]
 //    ["Wash the dishes", "Pay Gay's insurence", "Go to the gym"]
@@ -102,31 +120,33 @@ struct TwoListsView: View {
                     tasks[TaskPriority.urgent, default: []].append(droppedTask)
                         guard let origin = TaskPriority(rawValue: fromList) else {return }
                         tasks[origin]?.removeAll {$0.id == droppedTask.id}
-                        return true
                     }
                 
                 DroppableList("Not urgent", tasks: $notUrgent, listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.notUrgent, default: []].append(contentsOf: droppedTask)
+                    tasks[TaskPriority.notUrgent, default: []].append(droppedTask)
                     guard let origin = TaskPriority(rawValue: fromList) else {return }
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
+                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
                 }
             }
             HStack(spacing: 0) {
                 DroppableList("Important", tasks: $important, listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.important, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
-                    return true
+                    tasks[TaskPriority.important, default: []].append(droppedTask)
+                    guard let origin = TaskPriority(rawValue: fromList) else {return }
+                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
                 }
                 DroppableList("Not important", tasks: $notImportant, listId: $fromList) { droppedTask, index in
                     print("task priority", TaskPriority(rawValue: fromList))
-                    tasks[TaskPriority.notImportant, default: []].append(contentsOf: droppedTask)
-                    guard let origin = TaskPriority(rawValue: fromList) else {return false}
-                    tasks[origin]?.removeAll {$0.id == droppedTask[0].id}
-                    return true
+                    tasks[TaskPriority.notImportant, default: []].append(droppedTask)
+                    guard let origin = TaskPriority(rawValue: fromList) else {return }
+                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
+                    
                 }
             }
         }
+        /* We successfully added the task to the updated category.
+            But we are not removing it from the previous list cause we are looking for fromList which is empty
+            We also have to update the TodoTask with new priority each array is not containing the correct priority
+         */
     }
 }
 
