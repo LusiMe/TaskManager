@@ -138,15 +138,36 @@ struct TwoListsView: View {
                     print("task priority", TaskPriority(rawValue: fromList))
                     tasks[TaskPriority.notImportant, default: []].append(droppedTask)
                     guard let origin = TaskPriority(rawValue: fromList) else {return }
+                    droppedTask.priority
                     tasks[origin]?.removeAll {$0.id == droppedTask.id}
                     
                 }
+            }
+            .onAppear {
+                // Set up the task Dictionary?
+
             }
         }
         /* We successfully added the task to the updated category.
             But we are not removing it from the previous list cause we are looking for fromList which is empty
             We also have to update the TodoTask with new priority each array is not containing the correct priority
          */
+    }
+}
+
+
+class viewModel: ObservableObject {
+    @State var tasks = [TaskPriority: [ToDoTask]]()
+
+    init() {
+        // setup task from Swift DAta
+    }
+
+    func moveTask(_ task: ToDoTask, to: TaskPriority) {
+        // fetch the task from priority from task.priority
+        // delete it
+        // update Task priority
+        // add it to the new list
     }
 }
 
