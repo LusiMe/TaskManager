@@ -23,7 +23,6 @@ struct DroppableList: View {
     }
     
     var body: some View {
-        NavigationView {
             List {
                 Text(title)
                     .font(.subheadline)
@@ -39,8 +38,6 @@ struct DroppableList: View {
                         }
                 }
                 .onMove(perform: moveUser)
-                
-            }
         }
     }
     
@@ -94,46 +91,43 @@ struct TwoListsView: View {
     @State var fromList = ""
     
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Text("Eisenhover Matrix")
-                    .font(.headline)
-                Spacer()
-                EditButton()
-                Spacer()
-                    .frame(width: 10)
-            }
-            
-            HStack(spacing: 0) {
-                DroppableList(TaskPriority.urgent.rawValue, tasks: getTasks(by: TaskPriority.urgent), listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.urgent, default: []].append(droppedTask)
-                    guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
-                    droppedTask.priority = TaskPriority.urgent
-                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
-                }
-                
-                DroppableList(TaskPriority.notUrgent.rawValue, tasks:getTasks(by: TaskPriority.notUrgent), listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.notUrgent, default: []].append(droppedTask)
-                    guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
-                    droppedTask.priority = TaskPriority.notUrgent
-                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
-                }
-            }
-            HStack(spacing: 0) {
-                DroppableList(TaskPriority.important.rawValue, tasks:getTasks(by: TaskPriority.important), listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.important, default: []].append(droppedTask)
-                    guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
-                    droppedTask.priority = TaskPriority.important
-                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
-                }
-                DroppableList(TaskPriority.notImportant.rawValue, tasks:getTasks(by: TaskPriority.notImportant), listId: $fromList) { droppedTask, index in
-                    tasks[TaskPriority.notImportant, default: []].append(droppedTask)
-                    guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return } //todo: rewrite
-                    droppedTask.priority = TaskPriority.notImportant
-                    tasks[origin]?.removeAll {$0.id == droppedTask.id}
+        NavigationStack {
+            VStack {
+                HStack(spacing: 0) {
+                    DroppableList(TaskPriority.urgent.rawValue, tasks: getTasks(by: TaskPriority.urgent), listId: $fromList) { droppedTask, index in
+                        tasks[TaskPriority.urgent, default: []].append(droppedTask)
+                        guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
+                        droppedTask.priority = TaskPriority.urgent
+                        tasks[origin]?.removeAll {$0.id == droppedTask.id}
+                    }
                     
+                    DroppableList(TaskPriority.notUrgent.rawValue, tasks:getTasks(by: TaskPriority.notUrgent), listId: $fromList) { droppedTask, index in
+                        tasks[TaskPriority.notUrgent, default: []].append(droppedTask)
+                        guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
+                        droppedTask.priority = TaskPriority.notUrgent
+                        tasks[origin]?.removeAll {$0.id == droppedTask.id}
+                    }
                 }
+                HStack(spacing: 0) {
+                    DroppableList(TaskPriority.important.rawValue, tasks:getTasks(by: TaskPriority.important), listId: $fromList) { droppedTask, index in
+                        tasks[TaskPriority.important, default: []].append(droppedTask)
+                        guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return }
+                        droppedTask.priority = TaskPriority.important
+                        tasks[origin]?.removeAll {$0.id == droppedTask.id}
+                    }
+                    DroppableList(TaskPriority.notImportant.rawValue, tasks:getTasks(by: TaskPriority.notImportant), listId: $fromList) { droppedTask, index in
+                        tasks[TaskPriority.notImportant, default: []].append(droppedTask)
+                        guard let origin = TaskPriority(rawValue: droppedTask.priority.rawValue) else {return } //todo: rewrite
+                        droppedTask.priority = TaskPriority.notImportant
+                        tasks[origin]?.removeAll {$0.id == droppedTask.id}
+                        
+                    }
+                }
+            }
+            .navigationTitle("Eisenhover Matrix")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                EditButton()
             }
         }
     }
